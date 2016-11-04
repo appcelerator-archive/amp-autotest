@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 	"strings"
 )
 
@@ -34,7 +35,7 @@ func main() {
 			}
 		}
 	}
-	testargs := []string{"test", "-v", "./cmd/amp-test/tests"}
+	testargs := []string{"test", "-v", "./api/rpc/tests"}
 	if testName != "" {
 		testName = strings.ToUpper(testName[0:1]) + strings.ToLower(testName[1:])
 		testargs = append(testargs, "-run")
@@ -52,6 +53,8 @@ func main() {
 	if amplifierSwarm {
 		os.Setenv("server_address", "amplifier")
 	}
+	goPath := os.Getenv("GOPATH")
+	os.Chdir(path.Join(goPath, "src", "github.com", "appecelerator", "amp"))
 	cmd := exec.Command("go", testargs...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

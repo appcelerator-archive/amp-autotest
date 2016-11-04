@@ -26,7 +26,7 @@ GENERATED := $(shell find . -type f -name '*.pb.go' -not -path './vendor/*' -not
 CHECKSRC := $(shell find . -type f -name '*.go' -not -name '*.pb.go' -not -path './vendor/*' -not -path './.git/*')
 
 OWNER := appcelerator
-REPO := github.com/$(OWNER)/amp-test
+REPO := github.com/$(OWNER)/amp-autotest
 
 TAG := latest
 IMAGE := $(OWNER)/amp:$(TAG)
@@ -38,7 +38,7 @@ version:
 
 clean:
 	@rm -rf $(GENERATED)
-	@rm -f $$(which amp-test
+	@rm -f $$(which amp-autotest
 
 install:
 	@go install $(LDFLAGS) $(REPO)
@@ -63,7 +63,7 @@ build:
 	@docker build -t $(IMAGE) .
 
 run: build
-	@CID=$(shell docker run --net=host -d --name amp-test $(IMAGE)) && echo $${CID}
+	@CID=$(shell docker run --net=host -d --name amp-autotest $(IMAGE)) && echo $${CID}
 
 install-deps:
 	@glide install --strip-vcs --strip-vendor --update-vendored
