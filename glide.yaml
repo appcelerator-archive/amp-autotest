@@ -1,0 +1,5 @@
+package: github.com/appcelerator/amp-test
+import:
+- package: golang.org/x/net
+  subpackages:
+  - context
